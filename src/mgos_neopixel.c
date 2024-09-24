@@ -26,6 +26,7 @@
 #include "mgos_system.h"
 
 #define NUM_CHANNELS 3 /* r, g, b */
+int num_leds;
 
 struct mgos_neopixel {
   int pin;
@@ -46,6 +47,7 @@ struct mgos_neopixel *mgos_neopixel_create(int pin, int num_pixels,
   np->order = order;
   np->data = malloc(num_pixels * NUM_CHANNELS);
   mgos_neopixel_clear(np);
+  num_leds = num_pixels;
   return np;
 }
 
@@ -99,4 +101,28 @@ void mgos_neopixel_free(struct mgos_neopixel *np) {
 
 bool mgos_neopixel_init(void) {
   return true;
+}
+
+void mgos_neopixel_fill(struct mgos_neopixel *np, int i, int j, int r, int g, int b){
+  uint16_t index, end;
+
+  if (i >= num_leds) {
+    return; // If first LED is past end of strip, nothing to do
+  }
+
+  // Calculate the index ONE AFTER the last pixel to fill
+  if (j == 0) {
+    // Fill to end of strip
+    end = num_leds;
+  } else {
+    // Ensure that the loop won't go past the last pixel
+    end = i + j;
+    if (end > num_leds)
+      end = num_leds;
+  }
+
+  for (index = i; index < j; index++) {
+    //np->
+    mgos_neopixel_set(np,index,r,g,b);
+  }
 }

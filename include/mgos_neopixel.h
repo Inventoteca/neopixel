@@ -78,6 +78,11 @@ void mgos_neopixel_show(struct mgos_neopixel *np);
  */
 void mgos_neopixel_free(struct mgos_neopixel *np);
 
+/*
+ * Free neopixel instance.
+ */
+void mgos_neopixel_fill(struct mgos_neopixel *np, int i, int j, int r, int g, int b);
+
 #if defined(__cplusplus)
 }
 #endif
