@@ -121,7 +121,7 @@ void mgos_neopixel_fill(struct mgos_neopixel *np, int i, int j, int r, int g, in
       end = num_leds;
   }
 
-  for (index = i; index < j; index++) {
+  for (index = i; index < end; index++) {
     //np->
     mgos_neopixel_set(np,index,r,g,b);
   }
